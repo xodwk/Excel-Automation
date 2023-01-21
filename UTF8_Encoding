@@ -1,0 +1,21 @@
+import csv
+import os
+
+path = "./"
+file_list = os.listdir(path)
+file_list_csv = [file for file in file_list if file.endswith(".csv")]
+
+print ("file_list : {}".format(file_list_csv))
+
+for i in file_list_csv:
+    
+        infile = open(i, 'r', encoding='utf-8', errors='ignore')
+        outfile = open(i + ".csv", 'w', newline='')
+        inputs = csv.reader(infile)
+        output = csv.writer(outfile)
+
+        for index, row in enumerate(inputs):
+            # Create file with no header : 0
+            if index == -1:
+                continue
+            output.writerow(row)
