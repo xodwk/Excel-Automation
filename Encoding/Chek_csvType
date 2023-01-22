@@ -1,0 +1,21 @@
+# 파일 타입 확인
+
+import chardet
+import os
+import sys
+
+sys.stdout = open('csv_List.txt', 'w')
+
+path = "./"
+file_list = os.listdir(path)
+file_list_csv = [l for l in file_list if l.endswith(".csv")]
+
+# print("Scan List : {}".format(file_list_csv))
+
+for i in file_list_csv:
+
+    f = open(i, 'rb')
+    result = chardet.detect(f.readline())
+    print(i, ":", result['encoding'])
+
+sys.stdout.close()
