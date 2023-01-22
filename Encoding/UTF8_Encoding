@@ -3,7 +3,7 @@ import os
 
 path = "./"
 file_list = os.listdir(path)
-file_list_csv = [file for file in file_list if file.endswith(".csv")]
+file_list_csv = [l for l in file_list if l.endswith(".csv")]
 
 print ("file_list : {}".format(file_list_csv))
 
