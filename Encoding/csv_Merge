@@ -1,7 +1,25 @@
 import pandas as pd
 import pathlib
+import os, glob
+import pyautogui as pg
+from io import StringIO
 
-with pd.ExcelWriter('output.xls') as writer:
-    for filename in pathlib.Path('.').glob('*.csv'):
-        df = pd.read_csv(filename)
-        df.to_excel(writer, sheet_name=filename.stem, index=False)
+def listing():
+    io = StringIO()
+    path = "./"
+    file_list = os.listdir(path)
+    condition = '*.csv'
+    csvfiles = glob.glob(condition)
+    s1 = print("\n".join(csvfiles), file=io)
+    return io.getvalue()
+
+lol = listing()
+
+Msgbox = pg.confirm(text=lol, title='Encode List', buttons=['OK', 'Cancel'])
+print(Msgbox)
+
+if Msgbox == 'OK':
+    with pd.ExcelWriter('output.xls') as writer:
+        for filename in pathlib.Path('.').glob('*.csv'):
+            df = pd.read_csv(filename)
+            df.to_excel(writer, sheet_name=filename.stem, index=False)
